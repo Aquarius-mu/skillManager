@@ -11,7 +11,7 @@
 | [daily-weekly-report](skills/daily-weekly-report) | 单个技能 | 日报周报工作分析：把飞书聊天记录自动变成「早间梳理 / 一天总结 / 周报总结」三种产出 | `lark-cli`（im:message 权限即可） |
 | [feishu-card](skills/feishu-card) | 单个技能 | 飞书交互卡片（schema 2.0）：构建和发送卡片消息，含 @提及、流式思考态、原地更新、按钮/选择器交互 | `lark-cli` + `jq` + `python3` |
 | [beautiful-feishu-whiteboard](skills/beautiful-feishu-whiteboard) | 单个技能 | 生成美观、可编辑的飞书画板：35 种配色风格，偏向技术/代码场景（架构图、类图、时序图、状态机等） | `lark-cli` + `@larksuite/whiteboard-cli` + Node 20+ |
-| [gameserver-agent-skills](skills/gameserver-agent-skills) | 技能包（15 个子技能） | C++ 游戏服务器开发技能包：brainstorm / to-prd / plan / implement / review / debug / architect 等全流程，SVN 工作流，代码复审驱动质量门禁 | C++17 + SVN + `./qmake.sh` |
+| [gameserver-agent-skills](skills/gameserver-agent-skills) | 技能包（15 个子技能） | C++ 游戏服务器开发技能包：brainstorm / to-prd / plan / implement / review / debug / architect 等全流程，SVN 工作流，代码复审驱动质量门禁 | C++17 + SVN|
 
 > 「单个技能」= 一个技能一个目录；「技能包」= 一个目录里含多个子技能（自带 install.sh / package.json / README）。两者并列放在 `skills/` 下。
 
