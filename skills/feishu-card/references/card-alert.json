@@ -1,0 +1,44 @@
+{
+  "schema": "2.0",
+  "config": { "wide_screen_mode": true },
+  "header": {
+    "title": { "tag": "plain_text", "content": "🚨 ALERT | {{service_name}}" },
+    "template": "red",
+    "icon": { "tag": "standard_icon", "token": "warning-outlined", "color": "red" }
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "**:ERROR: What happened**\n{{description}}\n\n**:WAITING: Impact**\n{{impact}}\n\n**⏱ Duration**\nOffline for {{duration}}"
+        }
+      },
+      { "tag": "hr" },
+      {
+        "tag": "button",
+        "text": { "tag": "plain_text", "content": "⚡ Auto-fix" },
+        "type": "primary",
+        "behaviors": [{ "type": "callback", "value": { "action": "auto_fix", "service": "{{service_name}}" } }]
+      },
+      {
+        "tag": "button",
+        "text": { "tag": "plain_text", "content": "Ignore (1h)" },
+        "type": "default",
+        "behaviors": [{ "type": "callback", "value": { "action": "ignore", "service": "{{service_name}}", "ttl": 3600 } }]
+      },
+      {
+        "tag": "button",
+        "text": { "tag": "plain_text", "content": "🔺 Escalate" },
+        "type": "danger",
+        "behaviors": [{ "type": "callback", "value": { "action": "escalate", "service": "{{service_name}}" } }]
+      },
+      { "tag": "hr" },
+      {
+        "tag": "div",
+        "text": { "tag": "lark_md", "content": "<font color=grey>:PROCESSING: Generated at {{timestamp}}</font>" }
+      }
+    ]
+  }
+}

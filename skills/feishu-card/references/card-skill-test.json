@@ -1,0 +1,61 @@
+{
+  "schema": "2.0",
+  "config": { "wide_screen_mode": true },
+  "header": {
+    "title": { "tag": "plain_text", "content": "🧪 Skill Test | {{skill_name}} — {{result}}" },
+    "template": "{{template_color}}"
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "**Test #{{test_number}}** | {{date}}\n\n{{details}}\n\nPass count: **{{pass_count}}/3** needed for stable"
+        }
+      },
+      { "tag": "hr" },
+      {
+        "tag": "column_set",
+        "flex_mode": "trisect",
+        "columns": [
+          {
+            "tag": "column",
+            "elements": [{
+              "tag": "button",
+              "text": { "tag": "plain_text", "content": "🔁 Retest" },
+              "type": "default",
+              "width": "fill",
+              "behaviors": [{ "type": "callback", "value": { "action": "retest", "skill": "{{skill_name}}" } }]
+            }]
+          },
+          {
+            "tag": "column",
+            "elements": [{
+              "tag": "button",
+              "text": { "tag": "plain_text", "content": ":DONE: Mark Stable" },
+              "type": "primary",
+              "width": "fill",
+              "behaviors": [{ "type": "callback", "value": { "action": "mark_stable", "skill": "{{skill_name}}" } }]
+            }]
+          },
+          {
+            "tag": "column",
+            "elements": [{
+              "tag": "button",
+              "text": { "tag": "plain_text", "content": "🗂 Archive" },
+              "type": "danger",
+              "width": "fill",
+              "behaviors": [{ "type": "callback", "value": { "action": "archive", "skill": "{{skill_name}}" } }]
+            }]
+          }
+        ]
+      },
+      { "tag": "hr" },
+      {
+        "tag": "div",
+        "text": { "tag": "lark_md", "content": "<font color=grey>:PROCESSING: {{timestamp}} | Skill self-improvement log → ~/feishu_bot/skill_improve.log</font>" }
+      }
+    ]
+  }
+}
