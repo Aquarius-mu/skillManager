@@ -1,0 +1,31 @@
+{
+  "name": "gameserver-agent-skills",
+  "version": "1.0.0",
+  "description": "A unified AI agent skill pack for C++ game server development — SVN workflow, no test framework, code-review-driven quality gates.",
+  "keywords": [
+    "claude-code",
+    "agent-skills",
+    "gameserver",
+    "cpp",
+    "svn",
+    "cpp-gameserver"
+  ],
+  "license": "MIT",
+  "skills": [
+    "guide",
+    "brainstorm",
+    "plan",
+    "implement",
+    "review",
+    "debug",
+    "grill",
+    "architect",
+    "prototype",
+    "to-prd",
+    "to-issues",
+    "triage",
+    "zoom-out",
+    "handoff",
+    "caveman"
+  ]
+}
