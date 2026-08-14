@@ -1,3 +1,5 @@
+> 📦 **此技能包已合并进 [Aquarius-mu/skillManager](https://github.com/Aquarius-mu/skillManager)（`skills/gameserver-agent-skills/`），本目录为唯一维护源。原独立仓库 `Aquarius-mu/gameserver-agent-skills` 已归档只读。**
+
 <p align="center">
   <a href="./README.md"><img src="https://img.shields.io/badge/lang-English-blue" alt="English"></a>
   <a href="./README_zh.md"><img src="https://img.shields.io/badge/lang-中文-red" alt="中文"></a>
