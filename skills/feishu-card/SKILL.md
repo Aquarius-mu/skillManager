@@ -678,12 +678,12 @@ card = {
         },
         {"tag": "hr"},
         {"tag": "div", "text": {"tag": "lark_md",
-            "content": '👥 **版本负责人知悉**\n<at id="ou_f4d8024b035c78431a9bfdfce82a4cfb">王同乐(Atlas)</at>  <at id="ou_0bf729df814255c9ba18191d077ecfb1">张超(Scott)</at>\n请知悉～'}},
+            "content": '👥 **版本负责人知悉**\n<at id="ou_xxx">负责人甲</at>  <at id="ou_yyy">负责人乙</at>\n请知悉～'}},
         {"tag": "hr"},
         {"tag": "div", "text": {"tag": "lark_md",
             "content": f"📅 **活动配置请跟进**\n{at_owners}\n麻烦配置活动，辛苦了！:THUMBSUP:"}},
         {"tag": "hr"},
-        {"tag": "div", "text": {"tag": "lark_md", "content": f"<font color=grey>:DONE: {version} · {env} · 由 lucky后端ai 自动发送</font>"}}
+        {"tag": "div", "text": {"tag": "lark_md", "content": f"<font color=grey>:DONE: {version} · {env} · 由 后端AI 自动发送</font>"}}
     ]}
 }
 print(json.dumps(card, ensure_ascii=False))

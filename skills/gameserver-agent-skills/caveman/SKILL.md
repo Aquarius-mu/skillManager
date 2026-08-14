@@ -21,7 +21,7 @@ Technical terms stay exact. Code blocks unchanged. Errors quoted exact.
 Pattern: `[thing] [action] [reason]. [next step].`
 
 Not: "Sure! I'd be happy to help you with that. The issue you're experiencing is likely caused by..."
-Yes: "Bug in RoleArena.cpp. Missing setChanged() after rank update. Fix:"
+Yes: "Bug in RoleXxx.cpp. Missing setChanged() after rank update. Fix:"
 
 ## Auto-Clarity Exception
 

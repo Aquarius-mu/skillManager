@@ -47,12 +47,12 @@ Before writing any code for a task:
 
 Before building, verify:
 
-- [ ] All subtraction uses `UtilArith::safeSub(value, sub)` — no `--` or `-=`
-- [ ] All map lookups use `UtilSTL::findMapPtr` — no raw `.find()` + iterator compare
+- [ ] All subtraction uses `SafeSub(value, sub)` — no `--` or `-=`
+- [ ] All map lookups use `FindMapPtr` — no raw `.find()` + iterator compare
 - [ ] `setChanged()` called after every data modification that needs persistence
 - [ ] `sendResponse()` only in CmdParser layer — never inside Logic/Manager
 - [ ] All control flow bodies (`if`/`for`/`while`) use full brace blocks, braces on their own lines
-- [ ] New CS/SC commands registered in `CmdRegister.h` via `ADD_NORMAL_COMMAND`
+- [ ] New CS/SC commands registered in `CommandRegister.h` via `REGISTER_COMMAND`
 - [ ] Integer variables use `int32_t` for iRet (not `uint32_t`)
 - [ ] Error codes use `ERR_` prefix, propagated via `if (iRet != 0) { return iRet; }`
 - [ ] Protocol IDs are unique — check the surrounding CmdId enum range before assigning
@@ -60,7 +60,7 @@ Before building, verify:
 ## Build
 
 ```bash
-cd /data/home/jiadongsun/main4 && ./qmake.sh
+cd <workdir> && ./qmake.sh
 ```
 
 Expected: clean compilation, no new warnings. Fix any warnings before proceeding to review.

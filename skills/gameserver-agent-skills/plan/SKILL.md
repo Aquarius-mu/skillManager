@@ -49,12 +49,12 @@ Before defining tasks, map which files will be created or modified:
 **Files:**
 - Modify: `GameServer/CmdParser/CmdParserXxx.cpp:45-80`
 - Modify: `GameServer/Logic/RoleXxx.cpp`
-- Modify: `Common/ProtoGameXxx.sdp`
+- Modify: `Common/ProtoXxx.sdp`
 
 - [ ] **Step 1: [Protocol] Define sdp structs**
 
 ```cpp
-// in Common/ProtoGameXxx.sdp
+// in Common/ProtoXxx.sdp
 // exact structs to add
 ```
 
@@ -68,14 +68,14 @@ Before defining tasks, map which files will be created or modified:
 
 ```cpp
 // exact handler in CmdParserXxx.cpp
-int32_t CmdParserManager::handle_Xxx_Yyy(Role &role, const GameProto::Cmd_Xxx_Yyy_CS &stReq)
+int32_t HandlerManager::handle_Xxx_Yyy(Role &role, const Proto::Req_Xxx_Yyy &stReq)
 {
     int32_t iRet = role.xxxMgr->doSomething(stReq.iParam);
     if (iRet != 0)
     {
         return iRet;
     }
-    GameProto::Cmd_Xxx_Yyy_SC stSend;
+    Proto::Rsp_Xxx_Yyy stSend;
     role.xxxMgr->fillState(stSend.stState);
     sendResponse(stSend);
     return 0;
@@ -84,7 +84,7 @@ int32_t CmdParserManager::handle_Xxx_Yyy(Role &role, const GameProto::Cmd_Xxx_Yy
 
 - [ ] **Step 4: Build**
 
-Run: `cd /data/home/jiadongsun/main4 && ./qmake.sh`
+Run: `cd <workdir> && ./qmake.sh`
 Expected: no errors, binary produced
 
 - [ ] **Step 5: Code review**
@@ -111,9 +111,9 @@ These are plan failures — never write them:
 
 Every plan must verify each new feature:
 - [ ] CmdId enum values are unique and non-overlapping
-- [ ] New CS/SC commands registered in `CmdRegister.h` via `ADD_NORMAL_COMMAND`
-- [ ] All subtraction uses `UtilArith::safeSub()`
-- [ ] All map lookups use `UtilSTL::findMapPtr` (no raw `.find()`)
+- [ ] New CS/SC commands registered in `CommandRegister.h` via `REGISTER_COMMAND`
+- [ ] All subtraction uses `SafeSub()`
+- [ ] All map lookups use `FindMapPtr` (no raw `.find()`)
 - [ ] `setChanged()` called after every data modification
 - [ ] `sendResponse()` only in CmdParser layer, never in Logic layer
 - [ ] All control flow bodies have full brace blocks on separate lines

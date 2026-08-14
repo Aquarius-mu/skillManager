@@ -27,7 +27,7 @@ Ask or infer what the user wants to understand:
 ### 2. Map Upward — Callers
 
 Walk up from the target:
-- Who calls this function/handler? (grep for function name, check CmdRegister.h for command routing)
+- Who calls this function/handler? (grep for function name, check CommandRegister.h for command routing)
 - What triggers this code path? (client CS command? server-to-server Inter command? timer?)
 - Which Managers or Logic layers are involved?
 
@@ -57,7 +57,7 @@ Client → CmdParser::<Handler>::onCmd → <Manager>::<method>
 
 ### Dependencies (downward)
 - <Manager>::getData() — reads player data
-- UtilArith::safeSub() — balance calculation
+- SafeSub() — balance calculation
 - SC_<protocol> — sends response to client
 
 ### Peers (sideways)
@@ -77,7 +77,7 @@ Use the project's actual vocabulary — Manager names, struct names, sdp command
 
 ## C++ Game Server Specifics
 
-- Always check `CmdRegister.h` for command routing (ADD_NORMAL_COMMAND entries)
+- Always check `CommandRegister.h` for command routing (REGISTER_COMMAND entries)
 - Look for Manager singletons and their dependencies
 - Check `.sdp` files in `Common/` (CS/SC) and `Inter/` (server-to-server) for protocol definitions
 - Note `setChanged()` calls — these indicate persistent state modifications

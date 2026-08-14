@@ -22,7 +22,7 @@
         "tag": "div",
         "text": {
           "tag": "lark_md",
-          "content": ":Loudspeaker: **版本负责人知悉**\n<at id=\"ou_atlas\">王同乐(Atlas)</at>  <at id=\"ou_scott\">张超(Scott)</at>\n请知悉～"
+          "content": ":Loudspeaker: **版本负责人知悉**\n<at id=\"ou_aaa\">负责人甲</at>  <at id=\"ou_bbb\">负责人乙</at>\n请知悉～"
         }
       },
       {"tag": "hr"},
@@ -36,7 +36,7 @@
       {"tag": "hr"},
       {
         "tag": "div",
-        "text": {"tag": "lark_md", "content": "<font color=grey>:DONE: {{version}} · {{env}} · 由 lucky后端ai 自动发送</font>"}
+        "text": {"tag": "lark_md", "content": "<font color=grey>:DONE: {{version}} · {{env}} · 由 后端AI 自动发送</font>"}
       }
     ]
   }

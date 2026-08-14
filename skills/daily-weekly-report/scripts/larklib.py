@@ -23,7 +23,7 @@ def find_cli():
         candidates.append(w)
     if IS_WINDOWS:
         candidates.append(os.path.expanduser(
-            r"~\.MoontonClaudeDesktop\nodejs\lark-cli.cmd"))
+            r"~\.ClaudeDesktop\nodejs\lark-cli.cmd"))
         w2 = shutil.which("lark-cli.cmd")
         if w2:
             candidates.insert(0, w2)
@@ -81,7 +81,7 @@ def get_identity():
 
 
 def name_keywords(name):
-    """从显示名提取检索关键词。'孙家栋(Lucky)' → ['孙家栋','Lucky']。"""
+    """从显示名提取检索关键词。'张三(ZhangSan)' → ['张三','ZhangSan']。"""
     kws = []
     name = (name or "").strip()
     m = re.match(r"^(.+?)\s*[（(]\s*(.+?)\s*[)）]\s*$", name)

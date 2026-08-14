@@ -4,7 +4,7 @@
 
 **一个包含 35 种精选配色风格的库，用来生成漂亮、可二次编辑的飞书 / Lark 画板。**
 
-查看[飞书文档版本的介绍](https://bytedance.us.larkoffice.com/docx/AldcdypvjoEqQDxcSVeu37ixs0d)（内含使用场景 showcase）
+查看飞书文档版本的介绍（内含使用场景 showcase）
 
 这是一个给 AI agent 用的 **skill**（适用于 Claude Code 等会读取 `SKILL.md` 的 agent）。它不是一个自动排版的图表工具：**布局由你的 agent 自己来排**，而这些模板只提供有品味的**配色与气质**，外加飞书画板渲染引擎的硬性规则。产出是一块真正可在文档里继续编辑的飞书画板，而不是一张截图。
 

@@ -19,7 +19,7 @@ Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give
 2. **CLI invocation / GM command** — trigger the bug via a GM command on the dev server
 3. **Reproduce via client** — replicate the exact client sequence that triggers the bug
 4. **Throwaway harness** — add a temporary GM command that exercises the broken code path in isolation
-5. **Instrument the code path** — add tagged `MLOG` calls: `MLOG_DEBUG("...[DEBUG-a4f2] value=%d", iValue)`, recompile, redeploy
+5. **Instrument the code path** — add tagged `LOG` calls: `LOG_DEBUG("...[DEBUG-a4f2] value=%d", iValue)`, recompile, redeploy
 6. **Property loop** — if the bug is "sometimes wrong output", trigger it 100× and look for the failure mode
 7. **Differential loop** — compare behavior between two SVN revisions by checking out each and redeploying
 8. **Bisection** — if the bug appeared between two known SVN revisions, use `svn log -r N:M --limit 50` to find suspect commits, then `svn update -r <REV>` + redeploy to binary-search for the culprit
@@ -59,7 +59,7 @@ Each hypothesis must be falsifiable:
 Each probe maps to a specific prediction from Phase 3. **Change one variable at a time.**
 
 Tool preference:
-1. **Targeted `MLOG_DEBUG` calls** at the boundaries that distinguish hypotheses
+1. **Targeted `LOG_DEBUG` calls** at the boundaries that distinguish hypotheses
 2. **Breakpoint via gdb** if the environment supports it
 3. Never "log everything and grep"
 

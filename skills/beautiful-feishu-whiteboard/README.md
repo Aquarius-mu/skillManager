@@ -5,7 +5,7 @@
 **A library of 35 curated colour palette styles for building gorgeous, *editable* Feishu / Lark
 (飞书) whiteboards.**
 
-See the [Feishu doc version of this intro](https://bytedance.us.larkoffice.com/docx/AldcdypvjoEqQDxcSVeu37ixs0d) (with usage-scenario showcases).
+See the Feishu doc version of this intro (with usage-scenario showcases).
 
 This is an agent **skill** (for Claude Code and other agents that read `SKILL.md`). It is not an
 auto layout chart tool. Your agent composes the layout, and these templates give it a tasteful

@@ -95,7 +95,7 @@ lark-cli docs +create --doc-format markdown --content @week_report.md --as user
 ```
 
 - ⚠️ 实测要点：标题放 content 首行的 `<title>...</title>`，**不要用 --title flag**（新版已废弃）；`@file` 只接受相对路径。
-- 返回 JSON 里取 `data.document_id`，链接为 `https://moonton.feishu.cn/docx/<document_id>`（或取 `data.url`）。
+- 返回 JSON 里取 `data.document_id`，链接为 `https://<your-tenant>.feishu.cn/docx/<document_id>`（或取 `data.url`）。
 - **写操作必须先给用户看周报全文，确认后再创建**（自动化场景按任务权限直接创建）。
 - 用户给了目标 wiki/文件夹 token 时加 `--parent-token`。
 - 创建成功后把文档链接发给用户（可直接在对话里给链接）。

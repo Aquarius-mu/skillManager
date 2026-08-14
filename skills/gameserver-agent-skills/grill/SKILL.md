@@ -32,7 +32,7 @@ When grilling a game server design, specifically probe:
 - **Logic layer**: Which Manager owns this feature? Are the data structures in SdpData clearly defined?
 - **Persistence**: What data needs `setChanged()`? When is it saved to DB?
 - **Error codes**: Are new ERR_ codes needed? Are they in `ErrorDefine.sdp`?
-- **Registration**: Does this need `ADD_NORMAL_COMMAND` in `CmdRegister.h`?
+- **Registration**: Does this need `REGISTER_COMMAND` in `CommandRegister.h`?
 - **Concurrency**: Is there any cross-module state access that needs care?
 - **Edge cases**: What happens when the player is offline? When the data doesn't exist yet?
 

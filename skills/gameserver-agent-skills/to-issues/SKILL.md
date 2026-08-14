@@ -66,7 +66,7 @@ Avoid specific file paths or code — they go stale. Exception: if a prototype p
 - [ ] CmdId enum value added and unique
 - [ ] CS/SC structs defined in sdp
 - [ ] Logic implemented in Manager
-- [ ] CmdParser handler implemented and registered in CmdRegister.h
+- [ ] CmdParser handler implemented and registered in CommandRegister.h
 - [ ] ./qmake.sh compiles clean
 - [ ] Code review passed (no Critical/Important issues)
 - [ ] svn commit done

@@ -77,13 +77,13 @@ svn diff
 
 **C++ game server conventions:**
 - Naming: m_ prefix for members; i/b/s/v/st/p prefixes for locals; PascalCase classes
-- Subtraction: must use `UtilArith::safeSub()` — no direct `--` or `-=`
-- Map lookups: must use `UtilSTL::findMapPtr` — no raw `.find()` + iterator compare
-- String conversion: `UtilString::tostr()` not `std::to_string()`
+- Subtraction: must use `SafeSub()` — no direct `--` or `-=`
+- Map lookups: must use `FindMapPtr` — no raw `.find()` + iterator compare
+- String conversion: `ToString()` not `std::to_string()`
 - Control flow: all `if`/`for`/`while` bodies use full brace blocks, braces on their own lines
 - `setChanged()` called after all persistent data modifications
 - `sendResponse()` only in CmdParser layer, never inside Logic/Manager
-- New CS/SC commands registered in `CmdRegister.h`
+- New CS/SC commands registered in `CommandRegister.h`
 - Error codes use `ERR_` prefix; `iRet` declared as `int32_t`
 
 **Architecture:**
@@ -124,24 +124,24 @@ For each issue: file:line reference, what's wrong, why it matters, how to fix.
 ## Example
 
 ```
-[Just implemented Task 2: Add arena ranking query]
+[Just implemented Task 2: Add feature query]
 
 BASE_REV=$(svn info --show-item last-changed-revision)  # e.g. 4820
 BASE_REV=$((BASE_REV - 1))  # 4819 — before this task
 
 [Dispatch code reviewer subagent]
-  DESCRIPTION: Added getArenaRank() in RoleArena.cpp and handle_Arena_GetRank handler
-  PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/2026-05-12-arena-ranking.md
+  DESCRIPTION: Added getXxxRank() in RoleXxx.cpp and handle_Xxx_Yyy handler
+  PLAN_OR_REQUIREMENTS: Task 2 from docs/plans/2026-05-12-feature.md
   BASE_REV: 4819
   HEAD_REV: 4820
 
 [Reviewer returns]:
   Strengths: Clean iRet propagation, correct layer separation
   Issues:
-    Important: Missing setChanged() after m_cCache.iRankScore update
+    Important: Missing setChanged() after m_oCache.iScore update
     Minor: Magic number 100 for rank cap — extract to constant
   Assessment: Fix before commit
 
 [Fix setChanged() call]
-svn commit -m "feat: add arena rank query"
+svn commit -m "feat: add feature query"
 ```
