@@ -113,7 +113,7 @@ Every plan must verify each new feature:
 - [ ] CmdId enum values are unique and non-overlapping
 - [ ] New CS/SC commands registered in `CommandRegister.h` via `REGISTER_COMMAND`
 - [ ] All subtraction uses `SafeSub()`
-- [ ] All map lookups use `UtilSTL::findMapPtr` (no raw `.find()`)
+- [ ] All map lookups use `FindMapPtr` (no raw `.find()`)
 - [ ] `setChanged()` called after every data modification
 - [ ] `sendResponse()` only in CmdParser layer, never in Logic layer
 - [ ] All control flow bodies have full brace blocks on separate lines

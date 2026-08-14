@@ -79,7 +79,7 @@ Show counts and a one-line summary per issue.
 ## C++ Conventions Reminder
 
 - `SafeSub()` for subtraction
-- `UtilSTL::findMapPtr` for map lookups
+- `FindMapPtr` for map lookups
 - `setChanged()` after data modifications
 - `sendResponse()` only in CmdParser layer
 - Full braces for all control flow

@@ -36,7 +36,7 @@
       {"tag": "hr"},
       {
         "tag": "div",
-        "text": {"tag": "lark_md", "content": "<font color=grey>:DONE: {{version}} · {{env}} · 由 后端ai 自动发送</font>"}
+        "text": {"tag": "lark_md", "content": "<font color=grey>:DONE: {{version}} · {{env}} · 由 后端AI 自动发送</font>"}
       }
     ]
   }

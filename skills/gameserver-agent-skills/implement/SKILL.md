@@ -48,7 +48,7 @@ Before writing any code for a task:
 Before building, verify:
 
 - [ ] All subtraction uses `SafeSub(value, sub)` — no `--` or `-=`
-- [ ] All map lookups use `UtilSTL::findMapPtr` — no raw `.find()` + iterator compare
+- [ ] All map lookups use `FindMapPtr` — no raw `.find()` + iterator compare
 - [ ] `setChanged()` called after every data modification that needs persistence
 - [ ] `sendResponse()` only in CmdParser layer — never inside Logic/Manager
 - [ ] All control flow bodies (`if`/`for`/`while`) use full brace blocks, braces on their own lines
