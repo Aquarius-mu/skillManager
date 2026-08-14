@@ -36,7 +36,7 @@ Before defining tasks, map which files will be created or modified:
 
 **Architecture:** [2-3 sentences]
 
-**Tech Stack:** C++17, SVN, qmake.sh build
+**Tech Stack:** C++17, SVN, build script
 
 ---
 ```
@@ -84,7 +84,7 @@ int32_t HandlerManager::handle_Xxx_Yyy(Role &role, const Proto::Req_Xxx_Yyy &stR
 
 - [ ] **Step 4: Build**
 
-Run: `cd <workdir> && ./qmake.sh`
+Run: `cd <workdir> && ./build.sh`
 Expected: no errors, binary produced
 
 - [ ] **Step 5: Code review**

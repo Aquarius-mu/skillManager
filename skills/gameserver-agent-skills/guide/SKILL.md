@@ -25,7 +25,7 @@ idea → /brainstorm → /to-prd → /plan → /to-issues → /implement loop �
 2. `/to-prd` — Turn the design into a formal PRD and publish to the issue tracker
 3. `/plan` — Break the PRD into a step-by-step implementation plan
 4. `/to-issues` — Slice the plan into independently-grabbable SVN-ready issues
-5. `/implement` — Execute: implement slice → `./qmake.sh` → `/review` → `svn commit`
+5. `/implement` — Execute: implement slice → `./build.sh` → `/review` → `svn commit`
 
 ### Bug Fixing
 
@@ -80,7 +80,7 @@ bug report → /debug → implement fix → /review → svn commit
 
 - **Language:** C++17
 - **Framework:** Custom in-house C++ game server framework
-- **Build:** `./qmake.sh` (Unity Build + distcc)
+- **Build:** `./build.sh` (Unity Build)
 - **Deploy:** `cpgame <server_id>`
 - **VCS:** SVN — all commits use `svn commit -m "..."`, all history via `svn log`
 - **Protocol:** `.sdp` files in `Common/` (CS/SC) and `Inter/` (server-to-server)
@@ -88,4 +88,4 @@ bug report → /debug → implement fix → /review → svn commit
 
 ## Quality Gate
 
-**No code is committed without passing:** `./qmake.sh` compiles clean → `/review` subagent approves → `svn commit`.
+**No code is committed without passing:** `./build.sh` compiles clean → `/review` subagent approves → `svn commit`.

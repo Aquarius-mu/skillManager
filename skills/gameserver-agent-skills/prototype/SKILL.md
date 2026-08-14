@@ -19,7 +19,7 @@ If genuinely ambiguous, default to whichever branch matches the surrounding code
 ## Rules
 
 1. **Throwaway from day one, clearly marked.** Name the file or directory so a reader instantly knows it's a prototype: `proto_xxx.cpp`, `scratch_xxx.sdp`
-2. **One command to build.** Use `./qmake.sh`. The result must compile and run without thinking
+2. **One command to build.** Use `./build.sh`. The result must compile and run without thinking
 3. **No persistence by default.** State lives in memory unless persistence is the question being answered
 4. **Skip the polish.** No full error handling beyond what makes it runnable. The point is to learn fast and delete
 5. **Surface the state.** After every operation, log the full relevant state so the question can be answered

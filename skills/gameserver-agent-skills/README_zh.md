@@ -68,7 +68,7 @@ Bug 报告 → /debug → /implement → /review → svn commit
 | `/to-prd` | 将对话内容转化为正式 PRD |
 | `/plan` | 编写包含精确代码和命令的分步实现计划 |
 | `/to-issues` | 将计划拆分为可独立提交的垂直切片 Issue |
-| `/implement` | 执行循环：实现 → `./qmake.sh` → `/review` → `svn commit` |
+| `/implement` | 执行循环：实现 → `./build.sh` → `/review` → `svn commit` |
 | `/review` | 提交前派发代码复审 Subagent |
 | `/debug` | 纪律性 Bug 诊断：构建反馈循环 → 假设验证 → 修复 |
 | `/architect` | 发现并修复架构问题，降低耦合 |

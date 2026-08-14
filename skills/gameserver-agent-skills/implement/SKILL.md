@@ -11,7 +11,7 @@ Execute one vertical slice at a time: implement → build clean → code review 
 
 ```
 SLICE: implement change
-BUILD: ./qmake.sh  →  must compile with zero new errors/warnings
+BUILD: ./build.sh  →  must compile with zero new errors/warnings
 REVIEW: invoke /review skill  →  fix Critical + Important issues
 COMMIT: svn commit -m "feat/fix: <description>"
 ```
@@ -60,7 +60,7 @@ Before building, verify:
 ## Build
 
 ```bash
-cd <workdir> && ./qmake.sh
+cd <workdir> && ./build.sh
 ```
 
 Expected: clean compilation, no new warnings. Fix any warnings before proceeding to review.

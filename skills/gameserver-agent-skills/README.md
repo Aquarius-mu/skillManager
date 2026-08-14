@@ -68,7 +68,7 @@ bug report → /debug → /implement → /review → svn commit
 | `/to-prd` | Turn a conversation into a formal PRD |
 | `/plan` | Write a step-by-step implementation plan with exact code |
 | `/to-issues` | Slice a plan into independently-committable vertical slices |
-| `/implement` | Execute: implement → `./qmake.sh` → `/review` → `svn commit` |
+| `/implement` | Execute: implement → `./build.sh` → `/review` → `svn commit` |
 | `/review` | Dispatch a code reviewer subagent before any commit |
 | `/debug` | Disciplined bug diagnosis: feedback loop → hypothesise → fix |
 | `/architect` | Find and fix architectural friction, reduce coupling |

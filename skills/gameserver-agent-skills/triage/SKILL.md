@@ -72,7 +72,7 @@ Show counts and a one-line summary per issue.
 
 ## Acceptance Criteria
 
-- [ ] ./qmake.sh compiles clean
+- [ ] ./build.sh compiles clean
 - [ ] Code review passed
 - [ ] svn commit done with descriptive message
 
