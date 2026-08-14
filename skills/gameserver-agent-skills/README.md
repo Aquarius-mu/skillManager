@@ -18,7 +18,6 @@ A unified AI agent skill pack for C++ game server development.
 Merges the best of [obra/superpowers](https://github.com/obra/superpowers) and [mattpocock/skills](https://github.com/mattpocock/skills), stripped of all test-framework assumptions, and adapted for:
 
 - **Language:** C++17
-- **Build:** `./qmake.sh` (Unity Build + distcc)
 - **VCS:** SVN (not git)
 - **Quality gate:** compile clean → code review → `svn commit`
 
