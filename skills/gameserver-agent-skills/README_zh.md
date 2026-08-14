@@ -18,7 +18,6 @@
 融合了 [obra/superpowers](https://github.com/obra/superpowers) 与 [mattpocock/skills](https://github.com/mattpocock/skills) 两个开源 Skill 包的精华，去除所有自动化测试依赖，适配以下项目特点：
 
 - **语言：** C++17
-- **构建：** `./qmake.sh`（Unity Build + distcc）
 - **版本控制：** SVN（非 git）
 - **质量门禁：** 编译通过 → 代码复审 → `svn commit`
 
