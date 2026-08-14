@@ -1,0 +1,43 @@
+{
+  "schema": "2.0",
+  "config": {"wide_screen_mode": true},
+  "header": {
+    "title": {"tag": "plain_text", "content": "🚀 {{version}} · {{env}} 发版通知"},
+    "template": "wathet",
+    "subtitle": {"tag": "plain_text", "content": "MLA · {{env}} · {{datetime}}"}
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "column_set",
+        "flex_mode": "trisect",
+        "columns": [
+          {"tag": "column", "elements": [{"tag": "div", "text": {"tag": "lark_md", "content": "<font color=grey>版本号</font>\n**{{version}}**"}}]},
+          {"tag": "column", "elements": [{"tag": "div", "text": {"tag": "lark_md", "content": "<font color=grey>环境</font>\n<text_tag color='blue'>{{env}}</text_tag>"}}]},
+          {"tag": "column", "elements": [{"tag": "div", "text": {"tag": "lark_md", "content": "<font color=grey>状态</font>\n<text_tag color='green'>✅ 已发好</text_tag>"}}]}
+        ]
+      },
+      {"tag": "hr"},
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": ":Loudspeaker: **版本负责人知悉**\n<at id=\"ou_atlas\">王同乐(Atlas)</at>  <at id=\"ou_scott\">张超(Scott)</at>\n请知悉～"
+        }
+      },
+      {"tag": "hr"},
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": ":OnIt: **活动配置请跟进**\n<at id=\"{{owner1_open_id}}\">{{owner1_name}}</at>  <at id=\"{{owner2_open_id}}\">{{owner2_name}}</at>\n麻烦配置活动，辛苦了！:THUMBSUP:"
+        }
+      },
+      {"tag": "hr"},
+      {
+        "tag": "div",
+        "text": {"tag": "lark_md", "content": "<font color=grey>:DONE: {{version}} · {{env}} · 由 lucky后端ai 自动发送</font>"}
+      }
+    ]
+  }
+}
