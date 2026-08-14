@@ -36,7 +36,7 @@ Before defining tasks, map which files will be created or modified:
 
 **Architecture:** [2-3 sentences]
 
-**Tech Stack:** C++17, SVN, build.sh build
+**Tech Stack:** C++17, SVN, build script
 
 ---
 ```
