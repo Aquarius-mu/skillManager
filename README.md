@@ -24,9 +24,12 @@ skillManager/
 ├── README.md              # 本文件
 ├── install.sh             # 技能安装脚本
 ├── skills/                # 技能库（单个技能 + 技能包）
-│   ├── daily-weekly-report/           # 单个技能
-│   ├── beautiful-feishu-whiteboard/   # 单个技能（含 35 套风格资产）
-│   └── gameserver-agent-skills/       # 技能包（15 个子技能）
+│   ├── daily-weekly-report/               # 单个技能
+│   ├── feishu-card/                       # 单个技能
+│   ├── beautiful-feishu-whiteboard/       # 单个技能（含 35 套风格资产）
+│   ├── gameserver-agent-skills/           # 技能包（15 个子技能）
+│   ├── tig-acting-task/                   # 单个技能
+│   └── adversarial-gameplay-acceptance/   # 单个技能
 └── LICENSE
 ```
 
