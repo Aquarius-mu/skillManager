@@ -1,0 +1,34 @@
+{
+    "_comment": "message_map.py 配置示例。regex 必须改成你们项目自己的框架命名约定(处理器前缀、回包函数名、推送函数名、异步回调命名、错误码前缀)。下面的值是一套典型 C++ 游戏服务器的示例,直接用大概率也能扫出东西,但一定不完整。",
+    "include_ext": [".cpp", ".h", ".hpp", ".cc", ".c", ".lua", ".py", ".js", ".ts"],
+    "exclude_dirs": ["build", "bin", ".svn", ".git", "node_modules", "__pycache__"],
+    "max_file_bytes": 2097152,
+    "max_results_per_pattern": 500,
+    "patterns": [
+        {
+            "name": "消息处理器",
+            "_hint": "客户端请求的入口函数。改成你们的处理器命名,如 handle_Xxx / OnXxxReq / XxxHandler",
+            "regex": "handle_\\w+"
+        },
+        {
+            "name": "应答/回包",
+            "_hint": "给请求方回应答的调用。如 sendResponse / Reply / SendXxxSC",
+            "regex": "sendResponse\\s*\\("
+        },
+        {
+            "name": "主动推送",
+            "_hint": "不依赖请求、主动下发给玩家的调用。如 sendPush / pushStatus / Notify",
+            "regex": "sendPush\\s*\\(|push\\w*Status\\s*\\("
+        },
+        {
+            "name": "异步回调",
+            "_hint": "异步/跨服调用的回调与异常回调命名。如 callback_xxx / OnXxxRsp / XxxCallback",
+            "regex": "callback_\\w+"
+        },
+        {
+            "name": "错误码返回",
+            "_hint": "返回错误码的语句。如 return Error_X / return ERR_X / ret = EXxx",
+            "regex": "return\\s+Error_\\w+"
+        }
+    ]
+}
