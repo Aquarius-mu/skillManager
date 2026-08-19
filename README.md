@@ -13,6 +13,7 @@
 | [beautiful-feishu-whiteboard](skills/beautiful-feishu-whiteboard) | 单个技能 | 生成美观、可编辑的飞书画板：35 种配色风格，偏向技术/代码场景（架构图、类图、时序图、状态机等） | `lark-cli` + `@larksuite/whiteboard-cli` + Node 20+ |
 | [gameserver-agent-skills](skills/gameserver-agent-skills) | 技能包（15 个子技能） | C++ 游戏服务器开发技能包：brainstorm / to-prd / plan / implement / review / debug / architect 等全流程，SVN 工作流，代码复审驱动质量门禁 | C++17 + SVN |
 | [tig-acting-task](skills/tig-acting-task) | 单个技能 | AI 视频/场景表演指导（Tigran 方法）：为角色写 ACTING TASK 表演任务块，让 AI 生成的角色「眼睛活起来」 | 无（纯方法论） |
+| [adversarial-gameplay-acceptance](skills/adversarial-gameplay-acceptance) | 单个技能 | 游戏后端功能的对抗性业务验收：以策划/QA/玩家三视角验证服务端反馈闭环（回包/状态同步/推送/错误码），揪出「玩家操作了却没正确反馈」的 bug | python3（scripts 工具） |
 
 > 「单个技能」= 一个技能一个目录；「技能包」= 一个目录里含多个子技能（自带 install.sh / package.json / README）。两者并列放在 `skills/` 下。
 
