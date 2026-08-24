@@ -14,6 +14,7 @@
 | [gameserver-agent-skills](skills/gameserver-agent-skills) | 技能包（15 个子技能） | C++ 游戏服务器开发技能包：brainstorm / to-prd / plan / implement / review / debug / architect 等全流程，SVN 工作流，代码复审驱动质量门禁 | C++17 + SVN |
 | [tig-acting-task](skills/tig-acting-task) | 单个技能 | AI 视频/场景表演指导（Tigran 方法）：为角色写 ACTING TASK 表演任务块，让 AI 生成的角色「眼睛活起来」 | 无（纯方法论） |
 | [adversarial-gameplay-acceptance](skills/adversarial-gameplay-acceptance) | 单个技能 | 游戏后端功能的对抗性业务验收：以策划/QA/玩家三视角验证服务端反馈闭环（回包/状态同步/推送/错误码），揪出「玩家操作了却没正确反馈」的 bug | python3（scripts 工具） |
+| [silk-design](skills/silk-design) | 单个技能 | 丝绸动效网页设计：默认带高端丝滑动效做网页/落地页，Lenis 平滑滚动 + reveal + 视差 + marquee + hover 微交互 + 页面转场 + 13 种动态背景 + 10 套风格皮肤 + 23 个参考构图 | React + Vite + Tailwind v4 + motion + GSAP + Lenis |
 
 > 「单个技能」= 一个技能一个目录；「技能包」= 一个目录里含多个子技能（自带 install.sh / package.json / README）。两者并列放在 `skills/` 下。
 
@@ -29,7 +30,8 @@ skillManager/
 │   ├── beautiful-feishu-whiteboard/       # 单个技能（含 35 套风格资产）
 │   ├── gameserver-agent-skills/           # 技能包（15 个子技能）
 │   ├── tig-acting-task/                   # 单个技能
-│   └── adversarial-gameplay-acceptance/   # 单个技能
+│   ├── adversarial-gameplay-acceptance/   # 单个技能
+│   └── silk-design/                       # 单个技能（丝绸动效网页设计）
 └── LICENSE
 ```
 
