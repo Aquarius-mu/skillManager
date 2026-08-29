@@ -1,0 +1,6 @@
+{
+  "_comment": "复制本文件到 ~/.config/ai-daily-pulse/config.json 并填入真实值。三个字段全部可选——未填则脚本会回退到 stdout Markdown 输出。",
+  "feishu_app_id": "cli_xxxxxxxxxxxx",
+  "feishu_app_secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "feishu_default_chat_id": "oc_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
