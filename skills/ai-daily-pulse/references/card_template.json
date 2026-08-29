@@ -1,0 +1,50 @@
+{
+  "config": { "wide_screen_mode": true },
+  "header": {
+    "template": "blue",
+    "title": { "content": "🤖 AI Daily Pulse | 2026-05-21（周三）", "tag": "plain_text" }
+  },
+  "elements": [
+    { "tag": "section", "text": { "content": "## 🚀 官方发布", "tag": "markdown" } },
+    {
+      "tag": "section",
+      "text": {
+        "content": "**Claude 4.5 正式发布**\nAnthropic 发布新一代模型，推理能力提升 40%，支持 200K 上下文窗口。\n[📖 查看原文](https://anthropic.com/news/claude-4-5)",
+        "tag": "markdown"
+      }
+    },
+    {
+      "tag": "section",
+      "text": {
+        "content": "**GPT-5 Turbo 上线**\nOpenAI 发布 GPT-5 Turbo，速度提升 3 倍，成本降低 60%。\n[📖 查看原文](https://openai.com/blog/gpt-5-turbo)",
+        "tag": "markdown"
+      }
+    },
+    { "tag": "hr" },
+    { "tag": "section", "text": { "content": "## 🛠️ AI Coding & Agent", "tag": "markdown" } },
+    {
+      "tag": "section",
+      "text": {
+        "content": "**Cursor 2.0 发布**\nCursor 发布重大更新，支持多文件编辑和 Agent 模式。\n[📖 查看原文](https://cursor.com/blog/2.0)",
+        "tag": "markdown"
+      }
+    },
+    { "tag": "hr" },
+    { "tag": "section", "text": { "content": "## 🔥 开源趋势", "tag": "markdown" } },
+    {
+      "tag": "section",
+      "text": {
+        "content": "**langchain-ai/langchain**\n⭐ 82,000 | +1,200 today | [Python]\n[📖 查看原文](https://github.com/langchain-ai/langchain)",
+        "tag": "markdown"
+      }
+    },
+    { "tag": "hr" },
+    {
+      "tag": "section",
+      "text": {
+        "content": "*🤖 AI Daily Pulse | 共 15 条 | Tier 1: 12 | Tier 2: 3*",
+        "tag": "markdown"
+      }
+    }
+  ]
+}

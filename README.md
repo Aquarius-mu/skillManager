@@ -7,7 +7,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
-  <a href="#-技能总览"><img src="https://img.shields.io/badge/Skills-7%2B-brightgreen.svg" alt="Skills"></a>
+  <a href="#-技能总览"><img src="https://img.shields.io/badge/Skills-9%2B-brightgreen.svg" alt="Skills"></a>
   <a href="#-安装技能"><img src="https://img.shields.io/badge/Platform-Hermes%20%7C%20Claude-purple.svg" alt="Platform"></a>
   <img src="https://img.shields.io/github/last-commit/Aquarius-mu/skillManager" alt="Last Commit">
   <img src="https://img.shields.io/github/stars/Aquarius-mu/skillManager?style=social" alt="Stars">
@@ -39,6 +39,8 @@
 | 🎬 [tig-acting-task](skills/tig-acting-task) | 创意指导 | AI 视频/场景表演指导（Tigran 方法）：为角色写 ACTING TASK 表演任务块，让 AI 生成的角色「眼睛活起来」 | 无（纯方法论） |
 | 🛡️ [adversarial-gameplay-acceptance](skills/adversarial-gameplay-acceptance) | 质量保障 | 游戏后端功能的对抗性业务验收：以策划/QA/玩家三视角验证服务端反馈闭环，揪出「玩家操作了却没正确反馈」的 bug | `python3`（scripts 工具） |
 | ✨ [silk-design](skills/silk-design) | 网页设计 | 丝绸动效网页设计：默认带高端丝滑动效做网页/落地页，Lenis 平滑滚动 + reveal + 视差 + marquee + 页面转场 + 13 种动态背景 + 10 套风格皮肤 | React + Vite + Tailwind v4 + motion + GSAP + Lenis |
+| 📰 [ai-daily-pulse](skills/ai-daily-pulse) | 资讯聚合 | 每日 AI 行业新闻聚合：30+ 白名单源（官方博客/arXiv/GitHub/HuggingFace/国内媒体）采集 → 去重评分 → 飞书 Interactive Card 或 Markdown 推送 | python3（标准库）+ 飞书 App 凭证（可选） |
+| 🖼️ [xhs-zine-cover](skills/xhs-zine-cover) | 图像生成 | 小红书 Zine 风格封面生成器：纯代码绘制 3:4 极简独立杂志封面（撕纸边缘/Risograph 颗粒/套色偏移），文字拼写 100% 准确、风格统一 | python3 + Pillow |
 
 > 💡 「单个技能」= 一个技能一个目录；「技能包」= 一个目录里含多个子技能（自带 install.sh / package.json / README）。两者并列放在 `skills/` 下。
 
