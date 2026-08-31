@@ -3,13 +3,12 @@ name: ai-daily-pulse
 description: >
   每日 AI 行业新闻聚合工具。从 30+ 白名单源(RSS/Atom/JSON API/Web)采集 AI 新闻,经主 Agent
   评分筛选后,通过飞书群机器人推送 Interactive Card 卡片;未配置飞书 Bot 时直接在对话窗口
-  输出 Markdown 摘要。当用户提到 AI日报、AI每日推送、今日AI新闻、AI Daily Pulse、
-  ai-daily-pulse 时使用此 Skill。
+  输出 Markdown 摘要。内置自我进化引擎: 自动发现并注册新信源(信源自我拓展)+ 按历史表现
+  动态调整信源品质信用分(品质自我进化)。当用户提到 AI日报、AI每日推送、今日AI新闻、
+  AI Daily Pulse、ai-daily-pulse 时使用此 Skill。
 license: MIT
 metadata:
   version: 1.0.0
-  author: Vincent
-  owner: Vincent
   capabilities:
     - cap-network
   api_endpoints:
@@ -168,9 +167,10 @@ python3 <skill-dir>/scripts/main.py pipeline --tier 2
 
 | 子命令 | 用途 | 关键参数 |
 |--------|------|--------|
-| `collect` | 采集 + 去重,输出 JSON | `--tier {1,2}` `--source <key>` `--no-dedup` |
+| `collect` | 采集 + 去重,输出 JSON | `--tier {1,2}` `--source <key>` `--no-dedup` `--no-evolve` `--max-probe N` |
 | `deliver` | 读 JSON 后处理 + 输出 | `--input <file>` `--scored` `--top-n N` `--chat-id <id>` `--stdout` `--dry-run` |
-| `pipeline` | 完整流程(规则评分,无 LLM) | `--tier {1,2}` `--top-n N` `--chat-id <id>` `--stdout` `--dry-run` |
+| `pipeline` | 完整流程(规则评分,无 LLM) | `--tier {1,2}` `--top-n N` `--chat-id <id>` `--stdout` `--dry-run` `--no-evolve` `--max-probe N` |
+| `evolve` | 自我进化: 信源发现 / 品质报告 / 旧闻标记 | `discover` `report` `mark-stale --source <key>` |
 | `test` | 采集 + 去重统计 | `--tier {1,2}` `--source <key>` |
 
 通用:
@@ -302,11 +302,63 @@ python3 <skill-dir>/scripts/main.py pipeline --tier 1
 
 源可在 `config.py` 中自由增删,无副作用。
 
+## 自我进化（信源 + 品质，代码级自动执行）
+
+本 Skill 内置一套代码级自我进化引擎（`scripts/evolve.py`），两个维度全部自动执行、状态持久化到 `data/` 下，随每期运行越滚越强：
+
+### 1. 信源自我拓展
+
+- 每次采集后，引擎自动从已采集新闻的 URL 提取**新域名**（排除白名单和已注册域名）
+- 对每个新域名探测 17 种常见 RSS/Atom feed 路径（`/feed` `/rss.xml` `/atom.xml` `/blog/feed` 等）
+- 探测到有效 feed（能抓到含 `<item>`/`<entry>` 的 XML）即自动注册进信源库，**只增不减**
+- 动态信源与 `config.py` 白名单合并后参与后续采集
+- 持久化：`data/source_registry.json`（自动发现的新信源清单）
+
+### 2. 品质自我进化
+
+每个信源维护一份**信用档案**，随每期运行持续累积：
+
+| 信号 | 记录时机 | 作用 |
+|------|---------|------|
+| 抓取成功 / 失败次数 | 采集时自动记录 | 可靠性 |
+| 产出文章数 | 采集时自动记录 | 产出量 |
+| 被选中推送次数 | deliver / pipeline 推送后自动记录 | 正反馈（内容有价值） |
+| 出旧闻次数 | 溯源判旧闻后手动标记 | 负反馈（内容低质） |
+
+综合成 `quality_score ∈ [0,1]`（0.4×可靠性 + 0.4×产出价值率 + 0.2×无旧闻），评分时：
+- 品质 **≥ 0.7** 的信源 → 其新闻 **+1 分**
+- 品质 **≤ 0.3** 的信源 → 其新闻 **-1 分**
+- 中间为死区，不加不减（避免小幅波动抖动）
+- 持久化：`data/source_quality.json`
+
+### 子命令
+
+```bash
+# 品质报告: 查看各信源信用分排行
+python3 <skill-dir>/scripts/main.py evolve report
+
+# 手动触发一次信源发现(从已采集 JSON 探测新信源)
+cat /tmp/ai-pulse-raw.json | python3 <skill-dir>/scripts/main.py evolve discover
+
+# 溯源判旧闻后,给对应信源降信用(负反馈闭环,可多次 --source)
+python3 <skill-dir>/scripts/main.py evolve mark-stale --source <源key>
+
+# collect/pipeline 默认自动进化,可用 --no-evolve 跳过
+```
+
+### 触发时机
+
+- `collect` / `pipeline` 采集后自动跑信源发现（`--no-evolve` 关闭，`--max-probe N` 限制每轮探测域名数，默认 10）
+- `deliver` / `pipeline` 推送成功后自动记录选中反馈
+- 旧闻负反馈由主 Agent 在「时效性溯源铁律」执行时手动 `mark-stale` 标记
+
 ## 数据目录
 
 ```
 data/
 ├── log.json              # 运行日志(最近 100 条)
+├── source_registry.json  # 自我进化: 自动发现的新信源(只增不减)
+├── source_quality.json   # 自我进化: 信源品质信用档案
 └── cache/
     ├── rss_cache.json    # RSS 缓存 (TTL 48h)
     ├── github_cache.json # GitHub 缓存 (TTL 24h)

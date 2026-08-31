@@ -21,6 +21,9 @@ DATA_DIR = SKILL_DIR / 'data'
 CACHE_DIR = DATA_DIR / 'cache'
 LOG_FILE = DATA_DIR / 'log.json'
 USER_CONFIG_FILE = Path.home() / '.config' / 'ai-daily-pulse' / 'config.json'
+# 自我进化状态文件(运行期生成)
+SOURCE_REGISTRY_FILE = DATA_DIR / 'source_registry.json'
+SOURCE_QUALITY_FILE = DATA_DIR / 'source_quality.json'
 
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -158,6 +161,28 @@ TIER2_WEB_SOURCES = [
 ]
 
 TIER3_SOURCES = []
+
+
+# ============================================================
+# 动态信源合并 (自我进化: 自动发现的新信源与白名单合并)
+# ============================================================
+def get_all_rss_sources() -> list:
+    """合并 config 白名单 + 进化引擎动态注册的信源(只增不减)
+
+    动态注册表 data/source_registry.json 由 evolve.discover_sources() 写入,
+    本函数按需读取,避免 import 循环。
+    """
+    registry_file = SOURCE_REGISTRY_FILE
+    dynamic = []
+    if registry_file.exists():
+        try:
+            import json as _json
+            with open(registry_file, encoding='utf-8') as f:
+                data = _json.load(f)
+            dynamic = data.get('sources', [])
+        except (_json.JSONDecodeError, IOError):
+            dynamic = []
+    return list(TIER1_RSS_SOURCES) + list(dynamic)
 
 
 # ============================================================

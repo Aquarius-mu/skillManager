@@ -13,7 +13,7 @@ from typing import List, Dict, Optional
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from config import TIER1_RSS_SOURCES, DEFAULT_HEADERS, CACHE_DIR, CACHE_TTL_RSS, AI_FILTER_KEYWORDS
+from config import TIER1_RSS_SOURCES, DEFAULT_HEADERS, CACHE_DIR, CACHE_TTL_RSS, AI_FILTER_KEYWORDS, get_all_rss_sources
 
 RSS_CACHE_FILE = CACHE_DIR / 'rss_cache.json'
 
@@ -205,6 +205,12 @@ def fetch_single_source(source: Dict, use_cache: bool = True) -> List[Dict]:
 
     xml_text = _fetch_rss(url)
     if not xml_text:
+        # 自我进化: 记录抓取失败(负反馈,降低该信源信用)
+        try:
+            from evolve import record_fetch_result
+            record_fetch_result(key, ok=False)
+        except ImportError:
+            pass
         return []
 
     raw_items = _extract_items_from_xml(xml_text)
@@ -243,13 +249,20 @@ def fetch_single_source(source: Dict, use_cache: bool = True) -> List[Dict]:
         cache[key] = {'items': articles, '_ts': time.time()}
         _save_cache(cache)
 
+    # 自我进化: 记录抓取成功 + 产出条数(正反馈)
+    try:
+        from evolve import record_fetch_result
+        record_fetch_result(key, ok=True, n_articles=len(articles))
+    except ImportError:
+        pass
+
     return articles
 
 
 def fetch_all(sources: Optional[List[Dict]] = None, use_cache: bool = True) -> List[Dict]:
-    """采集所有 Tier 1 RSS 源"""
+    """采集所有 Tier 1 RSS 源(白名单 + 动态进化信源)"""
     if sources is None:
-        sources = TIER1_RSS_SOURCES
+        sources = get_all_rss_sources()
 
     all_articles = []
     for source in sources:

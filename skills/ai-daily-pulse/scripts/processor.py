@@ -78,6 +78,14 @@ def fallback_scoring(articles: List[Dict]) -> List[Dict]:
         '发布', '开源', '突破', 'gpt', 'claude', 'gemini',
     ]
 
+    # 信源品质加权(自我进化): 品质>0.5 的信源 +1, <0.5 的 -1
+    quality_map = {}
+    try:
+        from evolve import source_quality_map
+        quality_map = source_quality_map()
+    except ImportError:
+        quality_map = {}
+
     for a in articles:
         score = 5
 
@@ -100,7 +108,11 @@ def fallback_scoring(articles: List[Dict]) -> List[Dict]:
         if any(kw in title_lower for kw in hot_keywords):
             score += 1
 
-        a['score'] = min(score, 10)
+        # 信源品质信用加权
+        qs = quality_map.get(a.get('source_key', ''), 0.5)
+        score += round((qs - 0.5) * 2)
+
+        a['score'] = max(1, min(score, 10))
         if not a.get('summary'):
             a['summary'] = (a.get('description') or '')[:50]
 

@@ -25,11 +25,13 @@ sys.path.insert(0, str(Path(__file__).parent))
 from config import (
     TIER1_RSS_SOURCES, TIER2_WEB_SOURCES,
     DATA_DIR, CACHE_DIR, LOG_FILE, TOP_N_ARTICLES,
+    get_all_rss_sources,
 )
 from collectors import rss_collector, api_collector, github_collector, web_collector
 from dedup import deduplicate, mark_as_sent
 from processor import post_process
 from pusher import deliver as pusher_deliver
+from evolve import discover_sources, record_selection, record_stale, quality_report
 
 
 def _log_run(mode: str, tier: int, total: int, pushed: int, duration: float, error: str = ''):
@@ -62,10 +64,11 @@ def collect_articles(tier: int = 2, source_key: str = None) -> list:
     all_articles = []
 
     if source_key:
-        all_sources = TIER1_RSS_SOURCES + TIER2_WEB_SOURCES
+        rss_sources = get_all_rss_sources()
+        all_sources = rss_sources + TIER2_WEB_SOURCES
         target = next((s for s in all_sources if s['key'] == source_key), None)
         if target:
-            if target in TIER1_RSS_SOURCES:
+            if target in rss_sources:
                 return rss_collector.fetch_single_source(target, use_cache=False)
             return web_collector.fetch_single_source(target)
         if source_key == 'github_trending':
@@ -105,6 +108,14 @@ def collect_articles(tier: int = 2, source_key: str = None) -> list:
 def cmd_collect(args):
     """仅采集 + 去重(SHA + 历史),输出 JSON"""
     articles = collect_articles(tier=args.tier or 2, source_key=args.source)
+
+    # 自我进化: 从采集结果自动发现新信源(探测 feed 并注册,只增不减)
+    if args.evolve and articles:
+        try:
+            discover_sources(articles, max_probe=args.max_probe)
+        except Exception as e:
+            print(f"[Evolve] 信源发现失败(不影响主流程): {e}", file=sys.stderr)
+
     if args.no_dedup:
         unique = articles
     else:
@@ -135,6 +146,8 @@ def cmd_deliver(args):
     ok = pusher_deliver(selected, chat_id=args.chat_id, force_stdout=args.stdout)
     if ok and not args.no_mark_sent:
         mark_as_sent(selected)
+        # 自我进化: 被选中推送 = 正反馈,抬高其信源信用
+        record_selection(selected)
 
 
 def cmd_pipeline(args):
@@ -148,6 +161,13 @@ def cmd_pipeline(args):
         print("[WARN] No articles collected.", file=sys.stderr)
         _log_run('pipeline', tier, 0, 0, time.time() - start, 'no_articles')
         return
+
+    # 自我进化: 自动发现新信源(探测 feed 并注册)
+    if args.evolve:
+        try:
+            discover_sources(articles, max_probe=args.max_probe)
+        except Exception as e:
+            print(f"[Evolve] 信源发现失败(不影响主流程): {e}", file=sys.stderr)
 
     unique = deduplicate(articles)
     print(f"[Dedup] {len(articles)} -> {len(unique)}", file=sys.stderr)
@@ -166,9 +186,29 @@ def cmd_pipeline(args):
         if ok:
             pushed = len(selected)
             mark_as_sent(selected)
+            # 自我进化: 选中推送 = 正反馈
+            record_selection(selected)
 
     _log_run('pipeline', tier, len(articles), pushed, time.time() - start)
     print(f"\n[Done] {time.time() - start:.1f}s", file=sys.stderr)
+
+
+def cmd_evolve(args):
+    """自我进化: 信源发现 / 品质报告 / 旧闻标记"""
+    if args.sub == 'discover':
+        articles = []
+        if getattr(args, 'input', None):
+            with open(args.input) as f:
+                articles = json.load(f)
+        elif not sys.stdin.isatty():
+            articles = json.loads(sys.stdin.read())
+        found = discover_sources(articles, max_probe=args.max_probe, dry_run=args.dry_run)
+        print(f"[Evolve] 本轮探测 {len(found)} 个候选信源", file=sys.stderr)
+    elif args.sub == 'report':
+        print(quality_report())
+    elif args.sub == 'mark-stale':
+        record_stale(args.source)
+        print(f"[Evolve] 已标记 {len(args.source)} 个信源出旧闻(降信用)", file=sys.stderr)
 
 
 def cmd_test(args):
@@ -198,6 +238,9 @@ def build_parser():
     p.add_argument('--tier', type=int, choices=[1, 2])
     p.add_argument('--source', help='单源 key')
     p.add_argument('--no-dedup', action='store_true', help='跳过去重')
+    p.add_argument('--evolve', dest='evolve', action='store_true', default=True, help='信源自发现(默认开)')
+    p.add_argument('--no-evolve', dest='evolve', action='store_false', help='跳过信源自发现')
+    p.add_argument('--max-probe', type=int, default=10, help='每轮最多探测的新域名数')
     p.set_defaults(func=cmd_collect)
 
     # deliver
@@ -219,7 +262,24 @@ def build_parser():
     p.add_argument('--chat-id', help='飞书群 chat_id')
     p.add_argument('--stdout', action='store_true', help='强制 Markdown 输出')
     p.add_argument('--dry-run', action='store_true', help='仅打印选中的 JSON')
+    p.add_argument('--evolve', dest='evolve', action='store_true', default=True, help='信源自发现(默认开)')
+    p.add_argument('--no-evolve', dest='evolve', action='store_false', help='跳过信源自发现')
+    p.add_argument('--max-probe', type=int, default=10, help='每轮最多探测的新域名数')
     p.set_defaults(func=cmd_pipeline)
+
+    # evolve (自我进化)
+    p = sub.add_parser('evolve', help='自我进化: 信源发现 / 品质报告 / 旧闻标记')
+    esub = p.add_subparsers(dest='sub', required=True)
+    d = esub.add_parser('discover', help='从 stdin/--input 读文章 JSON,探测并注册新信源')
+    d.add_argument('--input', help='文章 JSON 文件')
+    d.add_argument('--max-probe', type=int, default=15)
+    d.add_argument('--dry-run', action='store_true')
+    d.set_defaults(func=cmd_evolve)
+    r = esub.add_parser('report', help='输出信源品质信用报告')
+    r.set_defaults(func=cmd_evolve)
+    s = esub.add_parser('mark-stale', help='标记信源出旧闻(负反馈降信用)')
+    s.add_argument('--source', action='append', required=True, help='源 key,可多次')
+    s.set_defaults(func=cmd_evolve)
 
     # test
     p = sub.add_parser('test', help='采集 + 去重统计')
