@@ -7,6 +7,8 @@
 
 - **零 API Key 依赖**: 脚本本身不调用任何 LLM
 - **30+ 白名单源**: 官方博客 / arXiv / GitHub Trending / HuggingFace / 国内媒体...
+- **信源自我拓展**: 从新闻 URL 自动探测并注册新信源(只增不减),信源库越滚越大
+- **品质自我进化**: 信源信用分(可靠性 + 产出价值率 + 旧闻惩罚),评分时自动加权
 - **多级去重**: SHA-256 精确 + Jaccard 模糊 + 7 天历史
 - **8 大分类智能配额**: 每个有内容的分类至少保留 1 条,确保多样性
 - **双输出模式**: 飞书 Interactive Card / stdout Markdown(自动选择)
@@ -54,6 +56,7 @@ python3 scripts/main.py pipeline --tier 2
 | `collect` | 采集 + 去重,输出 JSON |
 | `deliver` | 读 JSON 后处理 + 推送/输出 |
 | `pipeline` | 完整流程(规则评分,无 LLM) |
+| `evolve` | 自我进化: 信源发现 / 品质报告 / 旧闻标记 |
 | `test` | 采集 + 去重统计 |
 
 详见 `python3 scripts/main.py <cmd> --help`。
@@ -70,11 +73,12 @@ ai-daily-pulse/
 ├── scripts/
 │   ├── main.py         # CLI 入口
 │   ├── config.py       # 源配置 + 凭证读取
+│   ├── evolve.py       # 自我进化引擎(信源发现 + 品质信用分)
 │   ├── collectors/     # 采集器(rss/api/github/web)
 │   ├── dedup.py        # SHA + 历史去重
 │   ├── processor.py    # 跨分类去重 + 兜底评分 + 选取
 │   └── pusher.py       # 飞书卡片 / Markdown 输出
-└── data/               # 运行期生成,缓存与日志
+└── data/               # 运行期生成,缓存与日志(含自我进化状态)
 ```
 
 ## 自定义数据源
