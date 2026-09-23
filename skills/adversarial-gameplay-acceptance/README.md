@@ -1,6 +1,6 @@
 # 对抗性业务验收 Skill —— 全公司落地引导
 
-版本 2.1.0 ｜ 适用对象：游戏后端开发（语言/引擎不限）｜ 载体：Claude Code Skill
+版本 3.0.0 ｜ 适用对象：游戏后端开发（语言/引擎不限）｜ 载体：Claude Code Skill
 
 ---
 
@@ -18,7 +18,7 @@
 
 ```
 adversarial-gameplay-acceptance/
-├── SKILL.md                                  主流程：三视角 + 七种技术 + 反幻觉铁律 + 报告口径
+├── SKILL.md                                  主流程：三视角 + 九种技术 + 反幻觉铁律 + 报告口径
 ├── scripts/                                  可执行脚本（Python 3.6+，纯标准库，无需安装依赖）
 │   ├── message_map.py                        消息清单机械盘点器：按配置正则扫代码目录，列出
 │   │                                         处理器/应答/推送/回调/错误码返回，防手列漏消息
@@ -26,7 +26,7 @@ adversarial-gameplay-acceptance/
 │   │                                         文件:行号、必备章节齐全、覆盖率声明非空
 │   └── message-map.example.json              message_map 的配置模板（按项目命名改一次）
 └── references/
-    ├── adversarial-scenarios.md              对抗场景卡库（十类：并发/顺序/时机/身份/网络/数据/经济/刷新/配置/版本）
+    ├── adversarial-scenarios.md              对抗场景卡库（十一类：并发/顺序/时机/身份/网络/数据/经济/刷新/配置/版本/GM与运营链路）
     ├── feedback-path-table-template.md       反馈路径表模板 + 脱敏示例
     ├── report-template.md                    验收报告模板 + 严重级别口径
     ├── example-walkthrough.md                端到端验收教学示例（完全脱敏）
@@ -81,7 +81,7 @@ python scripts/verify_report.py 验收报告.md
 2. 需求对照
 3. 反馈路径表（每个入口消息 × 每个分支，落到"玩家屏幕表现"）
 4. P0/P1/P2 发现清单（每条带 文件:行号 + 玩家场景）
-5. 对抗场景卡结果（十类逐条给结论）
+5. 对抗场景卡结果（十一类逐条给结论）
 6. 需策划 / 客户端 / 运维确认项
 7. 已知边界 + 覆盖率声明
 
